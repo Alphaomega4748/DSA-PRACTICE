@@ -1,3 +1,30 @@
+
+// Problem: Symmetric Tree
+// Platform: LeetCode
+
+// Approach:
+// We check whether the binary tree is a mirror of itself using recursion.
+// A tree is symmetric if the left and right subtrees are mirror images.
+
+// We define a helper function isMirror(left, right):
+// 1. If both nodes are NULL → return true (symmetric)
+// 2. If one is NULL and the other is not → return false
+// 3. If values of both nodes are not equal → return false
+// 4. Recursively check:
+//    - left->left with right->right (outer pair)
+//    - left->right with right->left (inner pair)
+// 5. Return true only if both recursive calls return true (outer && inner)
+
+// In main function:
+// - If root is NULL → return true
+// - Otherwise, call isMirror(root->left, root->right)
+
+// Time Complexity: O(n)  (each node visited once)
+// Space Complexity: O(h) (recursion stack, h = height of tree)
+
+
+
+
 #include <iostream>
 using namespace std;
 
