@@ -137,3 +137,89 @@ int main() {
 
     FINAL PATH = [1,2,5,7]
     */
+
+
+
+
+
+
+    /*
+    🌳 Tree
+        1
+      /   \
+     2     3
+    / \
+   4   5
+      / \
+     6   7
+🔥 Step-by-step (Return Flow Style)
+▶️ getPath(4)
+left = false
+right = false
+→ return false
+→ pop 4
+arr = [1,2]
+▶️ getPath(6)
+left = false
+right = false
+→ return false
+→ pop 6
+arr = [1,2,5]
+▶️ getPath(7)
+left = false
+right = false
+→ return false
+→ pop 7
+arr = [1,2,5]
+▶️ getPath(5)
+left = false   (from 6)
+right = false  (from 7)
+
+false || false = false
+
+→ return false
+→ pop 5
+arr = [1,2]
+▶️ getPath(2)
+left = false   (from 4)
+right = false  (from 5)
+
+false || false = false
+
+→ return false
+→ pop 2
+arr = [1]
+▶️ getPath(3)
+3 == target ✅
+→ return true
+arr = [1,3]
+▶️ getPath(1)
+left = false  (from 2)
+right = true  (from 3)
+
+false || true = true
+
+→ return true
+✅ Final Answer
+arr = [1,3]
+🧠 Pattern samjho
+Node fail:
+false || false → false → pop → return false
+
+Node success:
+true → no pop → return true
+    */
+
+
+    /*
+
+
+Time Complexity (TC):
+O(n) → worst case we visit all nodes
+
+Space Complexity (SC):
+O(h) → recursion stack + path array
+h = height of tree
+-----------------------
+    
+    */
