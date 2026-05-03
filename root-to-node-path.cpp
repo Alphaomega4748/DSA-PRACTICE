@@ -99,3 +99,41 @@ int main() {
 
     return 0;
 }
+
+
+ /*
+    DRY RUN START (Target = 7)
+
+    Call stack flow:
+
+    getPath(1)
+    arr = [1]
+
+        getPath(2)
+        arr = [1,2]
+
+            getPath(4)
+            arr = [1,2,4]
+            4 != 7 → left NULL, right NULL → return false
+            POP → arr = [1,2]
+
+            getPath(5)
+            arr = [1,2,5]
+
+                getPath(6)
+                arr = [1,2,5,6]
+                6 != 7 → return false
+                POP → arr = [1,2,5]
+
+                getPath(7)
+                arr = [1,2,5,7]
+                7 == target → return true ✅
+
+            return true (no pop)
+
+        return true (no pop)
+
+    return true
+
+    FINAL PATH = [1,2,5,7]
+    */
