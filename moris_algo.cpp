@@ -163,4 +163,197 @@ int main()
     }
 
     return 0;
-}S
+}
+
+/*
+# Morris Inorder Traversal (Binary Tree)
+
+## Problem
+
+Perform inorder traversal of a binary tree without using recursion or stack.
+
+Inorder Traversal Order:
+
+```text
+Left -> Root -> Right
+```
+
+---
+
+# Intuition
+
+Normally inorder traversal uses:
+
+* Recursion
+* Stack
+
+Both take extra space.
+
+Morris Traversal avoids extra space by:
+
+* Temporarily modifying tree links
+* Creating threads from predecessor to current node
+
+This allows us to return back to a node without recursion.
+
+---
+
+# What is Inorder Predecessor?
+
+For a node:
+
+```text
+curr
+```
+
+Its inorder predecessor is:
+
+```text
+Rightmost node in its left subtree
+```
+
+Example:
+
+```text
+        1
+       / \
+      2   3
+     / \
+    4   5
+```
+
+For node 1:
+
+* Left subtree rooted at 2
+* Rightmost node = 5
+
+So predecessor of 1 = 5
+
+---
+
+# Main Logic
+
+## CASE 1:
+
+If current node has NO left child
+
+```cpp
+curr->left == NULL
+```
+
+Then:
+
+1. Visit current node
+2. Move right
+
+Because inorder says:
+
+```text
+Left -> Root -> Right
+```
+
+and left subtree does not exist.
+
+---
+
+## CASE 2:
+
+If current node HAS left child
+
+We must:
+
+1. Find predecessor
+2. Create temporary thread
+3. Move left
+
+Later:
+
+* Remove thread
+* Visit node
+* Move right
+
+---
+
+# Full Algorithm
+
+For every node:
+
+### If left child does not exist:
+
+```cpp
+visit current
+move right
+```
+
+### Else:
+
+Find predecessor.
+
+#### If predecessor->right == NULL
+
+Means first time visiting current node.
+
+Create thread:
+
+```cpp
+pred->right = curr
+```
+
+Move left.
+
+---
+
+#### Else if predecessor->right == curr
+
+Means left subtree already traversed.
+
+Now:
+
+1. Remove thread
+2. Visit current
+3. Move right
+
+---
+
+# Full Code with Comments
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+---------------------------------------------------------
+MORRIS INORDER TRAVERSAL
+---------------------------------------------------------
+
+APPROACH:
+We perform inorder traversal without recursion
+and without stack.
+
+We use threaded binary tree concept.
+
+For every node:
+
+1. If left child does not exist:
+      visit node
+      move right
+
+2. Else:
+      find inorder predecessor
+
+      a) If predecessor right is NULL
+            create temporary thread
+            move left
+
+      b) Else
+            remove thread
+            visit current node
+            move right
+
+TIME COMPLEXITY:
+O(N)
+
+SPACE CO
+```
+
+*/
