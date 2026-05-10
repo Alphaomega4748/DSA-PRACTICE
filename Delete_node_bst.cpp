@@ -25,8 +25,7 @@
  * };
  */
 
-class Solution {
-public:
+
 
     /*
     ============================================================
@@ -110,34 +109,52 @@ public:
     ============================================================
     */
 
+    #include <iostream>
+using namespace std;
+
+// Tree Node
+struct TreeNode {
+
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int x) {
+        val = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class Solution {
+
+public:
+
+    // Delete node from BST
     TreeNode* deleteNode(TreeNode* root, int key) {
 
         // If tree is empty
-        if(root == NULL) {
+        if (root == NULL) {
             return NULL;
         }
 
-        // If root itself is target node
-        if(root->val == key) {
+        // If root is target node
+        if (root->val == key) {
             return helper(root);
         }
 
-        // Store original root
         TreeNode* dummy = root;
 
-        // Traverse BST
-        while(root != NULL) {
+        while (root != NULL) {
 
-            // Move towards left side
-            if(root->val > key) {
+            // Move left
+            if (root->val > key) {
 
-                // Target node found at left child
-                if(root->left != NULL &&
-                   root->left->val == key) {
+                // Target found on left side
+                if (root->left != NULL &&
+                    root->left->val == key) {
 
-                    // Delete node and reconnect subtree
                     root->left = helper(root->left);
-
                     break;
                 }
                 else {
@@ -145,16 +162,14 @@ public:
                 }
             }
 
-            // Move towards right side
+            // Move right
             else {
 
-                // Target node found at right child
-                if(root->right != NULL &&
-                   root->right->val == key) {
+                // Target found on right side
+                if (root->right != NULL &&
+                    root->right->val == key) {
 
-                    // Delete node and reconnect subtree
                     root->right = helper(root->right);
-
                     break;
                 }
                 else {
@@ -166,46 +181,88 @@ public:
         return dummy;
     }
 
-    // Handles all deletion cases
+    // Handle deletion cases
     TreeNode* helper(TreeNode* root) {
 
-        // Case 1:
         // No left child
-        if(root->left == NULL) {
+        if (root->left == NULL) {
             return root->right;
         }
 
-        // Case 2:
         // No right child
-        else if(root->right == NULL) {
+        if (root->right == NULL) {
             return root->left;
         }
 
-        // Case 3:
         // Both children exist
 
-        // Store right subtree
         TreeNode* rightChild = root->right;
 
-        // Find rightmost node of left subtree
         TreeNode* lastRight =
         findLastRight(root->left);
 
         // Attach right subtree
         lastRight->right = rightChild;
 
-        // Return left subtree
         return root->left;
     }
 
     // Find rightmost node
     TreeNode* findLastRight(TreeNode* root) {
 
-        // Rightmost node found
-        if(root->right == NULL) {
+        if (root->right == NULL) {
             return root;
         }
 
         return findLastRight(root->right);
     }
 };
+
+// Inorder Traversal
+void inorder(TreeNode* root) {
+
+    if (root == NULL) {
+        return;
+    }
+
+    inorder(root->left);
+
+    cout << root->val << " ";
+
+    inorder(root->right);
+}
+
+int main() {
+
+    /*
+            5
+          /   \
+         3     6
+        / \     \
+       2   4     7
+    */
+
+    TreeNode* root = new TreeNode(5);
+
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(6);
+
+    root->left->left = new TreeNode(2);
+    root->left->right = new TreeNode(4);
+
+    root->right->right = new TreeNode(7);
+
+    Solution obj;
+
+    int key = 3;
+
+    root = obj.deleteNode(root, key);
+
+    cout << "BST After Deletion: ";
+
+    inorder(root);
+
+    cout << endl;
+
+    return 0;
+}
