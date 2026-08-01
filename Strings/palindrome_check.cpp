@@ -19,6 +19,8 @@ bool isPalindrome(string s){
         if(tolower(s[left]) != tolower(s[right])){
             return false;
         }
+        left++;
+        right--;
      }
      return true;
     }

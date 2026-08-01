@@ -1,0 +1,16 @@
+# Executable files
+*.exe
+
+# Object files
+*.o
+*.obj
+
+# VS Code
+.vscode/
+
+# Code Runner temp files
+tempCodeRunnerFile.cpp
+
+# Windows
+Thumbs.db
+Desktop.ini
